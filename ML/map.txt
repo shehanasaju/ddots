@@ -1,0 +1,1 @@
+{'Label': {'NetBIOS': 0, 'LDAP': 1, 'Benign': 2, 'MSSQL': 3, 'Portmap': 4, 'UDP': 5, 'Syn': 6, 'UDPLag': 7}}

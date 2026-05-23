@@ -1,0 +1,231 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DDOS-Attack Detection System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="DDOS Attack Detection, Network Security, Anomaly Detection" name="keywords">
+    <meta content="AI-powered DDoS attack detection and analysis system" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* ── DARK GLASSMORPHISM NAVBAR ── */
+        .main-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: rgba(10, 10, 30, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            transition: background 0.3s ease;
+        }
+
+        /* Brand */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.5);
+        }
+
+        .nav-brand-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-brand-text span {
+            color: #a78bfa;
+        }
+
+        /* Nav links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .nav-links a.active {
+            color: #c4b5fd;
+            font-weight: 600;
+        }
+
+        /* CTA nav button */
+        .nav-btn {
+            padding: 9px 20px !important;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5) !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.55) !important;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+        }
+
+        /* Hamburger for mobile */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 30, 0.97);
+                backdrop-filter: blur(20px);
+                padding: 16px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                gap: 4px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;background:#0a0a1e;">
+
+    <!-- NAVBAR -->
+    <nav class="main-navbar">
+        <a href="http://127.0.0.1:8000/" class="nav-brand">
+            <div class="nav-brand-icon"><i class="fa fa-shield-alt"></i></div>
+            <span class="nav-brand-text">DDOS<span>-Attack</span></span>
+        </a>
+
+        <button class="nav-toggle" onclick="toggleNav()" id="navToggle" aria-label="Toggle navigation">
+            <i class="fa fa-bars" id="navIcon"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            {% if request.session.userid %}
+            <li><a href="http://127.0.0.1:8000/home" class="active"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="http://127.0.0.1:8000/upload/"><i class="fa fa-upload"></i> Upload</a></li>
+            <li><a href="http://127.0.0.1:8000/complaint/"><i class="fa fa-pen"></i> Complaint</a></li>
+            <li><a href="http://127.0.0.1:8000/mycomplaints/"><i class="fa fa-history"></i> My Complaints</a></li>
+            <li><a href="http://127.0.0.1:8000/logout/" class="nav-btn"><i class="fa fa-sign-out-alt"></i> Logout</a>
+            </li>
+            {% elif request.session.admin %}
+            <li><a href="http://127.0.0.1:8000/" class="active"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="http://127.0.0.1:8000/viewupload/"><i class="fa fa-folder-open"></i> View Uploads</a></li>
+            <li><a href="http://127.0.0.1:8000/viewuser/"><i class="fa fa-users"></i> View Users</a></li>
+            <li><a href="http://127.0.0.1:8000/attack-analysis/"><i class="fa fa-chart-bar"></i> Attack Analysis</a>
+            </li>
+            <li><a href="http://127.0.0.1:8000/viewcomplaints/"><i class="fa fa-comment-alt"></i> View Complaints</a>
+            </li>
+            <li><a href="http://127.0.0.1:8000/logout/" class="nav-btn"><i class="fa fa-sign-out-alt"></i> Logout</a>
+            </li>
+            {% else %}
+            <li><a href="http://127.0.0.1:8000/" class="active"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="http://127.0.0.1:8000/register/"><i class="fa fa-user-plus"></i> Register</a></li>
+            <li><a href="http://127.0.0.1:8000/login/" class="nav-btn"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <script>
+        function toggleNav() {
+            const links = document.getElementById('navLinks');
+            const icon = document.getElementById('navIcon');
+            links.classList.toggle('open');
+            icon.className = links.classList.contains('open') ? 'fa fa-times' : 'fa fa-bars';
+        }
+    </script>
+
+    {% endblock %}

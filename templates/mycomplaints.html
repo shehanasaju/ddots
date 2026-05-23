@@ -1,0 +1,89 @@
+{% include 'header.html' %}
+{% load static %}
+
+<style>
+    .complaint-table-container {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 30px;
+        margin-top: 40px;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .status-pending {
+        background: rgba(251, 191, 36, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .status-resolved {
+        background: rgba(52, 211, 153, 0.15);
+        color: #34d399;
+        border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+</style>
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="complaint-table-container animate__animated animate__fadeIn">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="text-white fw-bold mb-0">My Complaints</h2>
+                        <p class="text-white-50">History of your submitted issues</p>
+                    </div>
+                    <a href="/complaint/" class="btn border-0"
+                        style="background: rgba(124, 58, 237, 0.15); color: #a78bfa;">
+                        <i class="fa fa-plus me-2"></i> New Complaint
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" style="color: rgba(255,255,255,0.8);">
+                        <thead>
+                            <tr class="text-white-50" style="border-bottom: 2px solid rgba(255,255,255,0.05);">
+                                <th class="py-3">Date</th>
+                                <th class="py-3">Subject</th>
+                                <th class="py-3">Message</th>
+                                <th class="py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in complaints %}
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                                <td class="py-4">{{ c.date|date:"M d, Y" }}</td>
+                                <td class="py-4 fw-bold">{{ c.subject }}</td>
+                                <td class="py-4"><span class="text-white-50">{{ c.message|truncatewords:15 }}</span>
+                                </td>
+                                <td class="py-4">
+                                    <span
+                                        class="status-badge {% if c.status == 'Pending' %}status-pending{% else %}status-resolved{% endif %}">
+                                        {{ c.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-white-50">
+                                    <i class="fa fa-folder-open d-block mb-3 fs-1 opacity-25"></i>
+                                    You haven't submitted any complaints yet.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

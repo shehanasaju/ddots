@@ -1,0 +1,685 @@
+{% block content %}
+{% include 'header.html' %}
+{% load static %}
+{% if message %}
+<script>alert('{{ message }}');</script>
+{% endif %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #0a0a1e;
+        font-family: 'Inter', sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+    }
+
+    /* ── HERO SECTION ── */
+    .hero {
+        position: relative;
+        min-height: calc(100vh - 68px);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("{% static 'img/s2.jpeg' %}");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.25) saturate(0.7);
+        z-index: 0;
+    }
+
+    /* Gradient overlay */
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg,
+                rgba(10, 10, 30, 0.95) 0%,
+                rgba(79, 70, 229, 0.25) 50%,
+                rgba(124, 58, 237, 0.15) 100%);
+        z-index: 1;
+    }
+
+    /* Animated glow blobs */
+    .hero-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.18;
+        z-index: 1;
+        animation: blobDrift 10s ease-in-out infinite alternate;
+    }
+
+    .hero-blob-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #7c3aed, #4f46e5);
+        top: -100px;
+        right: -100px;
+    }
+
+    .hero-blob-2 {
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, #06b6d4, #0ea5e9);
+        bottom: -80px;
+        left: 10%;
+        animation-delay: 5s;
+    }
+
+    @keyframes blobDrift {
+        from {
+            transform: translateY(0) scale(1);
+        }
+
+        to {
+            transform: translateY(40px) scale(1.12);
+        }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        width: 100%;
+    }
+
+    /* Badge pill */
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(124, 58, 237, 0.2);
+        border: 1px solid rgba(124, 58, 237, 0.4);
+        border-radius: 100px;
+        padding: 6px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #c4b5fd;
+        margin-bottom: 28px;
+        animation: fadeSlideUp 0.6s ease both;
+    }
+
+    .hero-badge i {
+        font-size: 11px;
+    }
+
+    .hero-title {
+        font-size: clamp(36px, 6vw, 72px);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin: 0 0 24px;
+        animation: fadeSlideUp 0.7s ease 0.1s both;
+        max-width: 700px;
+    }
+
+    .hero-title .gradient-text {
+        background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-desc {
+        font-size: 18px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 560px;
+        margin: 0 0 40px;
+        font-weight: 400;
+        animation: fadeSlideUp 0.7s ease 0.2s both;
+    }
+
+    /* CTA Buttons */
+    .hero-cta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        animation: fadeSlideUp 0.7s ease 0.3s both;
+    }
+
+    .btn-primary-glow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 32px;
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        color: #fff;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 28px rgba(124, 58, 237, 0.45);
+    }
+
+    .btn-primary-glow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(124, 58, 237, 0.6);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-outline-glow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 32px;
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.85);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+    }
+
+    .btn-outline-glow:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    @keyframes fadeSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 12px;
+        animation: bounce 2.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        50% {
+            transform: translateX(-50%) translateY(8px);
+        }
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+        background: rgba(255, 255, 255, 0.03);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 40px 40px;
+    }
+
+    .stats-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 24px;
+        text-align: center;
+    }
+
+    .stat-item {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 36px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #a78bfa, #60a5fa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.1;
+        margin-bottom: 6px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        font-weight: 400;
+    }
+
+    /* ── FEATURES SECTION ── */
+    .features-section {
+        padding: 100px 40px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 100px;
+        padding: 5px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #a78bfa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        color: #fff;
+        margin: 0 0 16px;
+        line-height: 1.15;
+    }
+
+    .section-title span {
+        background: linear-gradient(135deg, #a78bfa, #60a5fa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .section-desc {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.5);
+        max-width: 500px;
+        line-height: 1.7;
+        margin: 0 0 60px;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 32px 28px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(79, 70, 229, 0.04));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(124, 58, 237, 0.35);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+    }
+
+    .feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #fff;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .feature-card p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.7;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+        padding: 80px 40px;
+        background: rgba(255, 255, 255, 0.02);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .how-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .steps-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+        margin-top: 56px;
+        position: relative;
+    }
+
+    .step-item {
+        text-align: center;
+        padding: 24px 16px;
+    }
+
+    .step-number {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        margin: 0 auto 20px;
+        box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45);
+    }
+
+    .step-item h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 8px;
+    }
+
+    .step-item p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+        margin: 80px 40px;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(79, 70, 229, 0.2));
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 24px;
+        padding: 60px 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-banner::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent);
+        border-radius: 50%;
+        top: -100px;
+        right: -80px;
+        filter: blur(60px);
+    }
+
+    .cta-banner h2 {
+        font-size: clamp(24px, 4vw, 40px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin: 0 0 14px;
+        position: relative;
+    }
+
+    .cta-banner p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.55);
+        max-width: 480px;
+        margin: 0 auto 36px;
+        line-height: 1.7;
+        position: relative;
+    }
+
+    .cta-banner-btns {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        position: relative;
+    }
+</style>
+
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fa fa-circle" style="color:#34d399;"></i>
+            AI-Powered Network Security
+        </div>
+
+        <h1 class="hero-title">
+            Detect &amp; Defend<br>
+            Against <span class="gradient-text">DDoS Attacks</span><br>
+            in Real Time
+        </h1>
+
+        <p class="hero-desc">
+            Advanced machine learning system that identifies Distributed Denial-of-Service
+            attack patterns, anomalies, and threats before they impact your network.
+        </p>
+
+        <div class="hero-cta">
+            <a href="/register/" class="btn-primary-glow">
+                <i class="fa fa-rocket"></i> Get Started Free
+            </a>
+            <a href="/login/" class="btn-outline-glow">
+                <i class="fa fa-sign-in-alt"></i> Sign In
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <i class="fa fa-chevron-down"></i>
+        <span>Scroll</span>
+    </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-strip">
+    <div class="stats-inner">
+        <div class="stat-item">
+            <div class="stat-value">99.8%</div>
+            <div class="stat-label">Detection Accuracy</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">&lt; 1ms</div>
+            <div class="stat-label">Real-time Analysis</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">12+</div>
+            <div class="stat-label">Attack Types Detected</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">ML</div>
+            <div class="stat-label">Powered Intelligence</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="features-section">
+    <div class="section-tag"><i class="fa fa-star"></i> Features</div>
+    <h2 class="section-title">Everything you need to<br><span>stay protected</span></h2>
+    <p class="section-desc">Our system uses state-of-the-art machine learning algorithms to detect, classify, and
+        analyze network anomalies.</p>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #7c3aed, #4f46e5); box-shadow: 0 8px 20px rgba(124,58,237,0.4);">
+                <i class="fa fa-brain"></i>
+            </div>
+            <h3>ML Classification</h3>
+            <p>Advanced machine learning models trained on millions of network packets to classify attack types with
+                high precision.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #0ea5e9, #06b6d4); box-shadow: 0 8px 20px rgba(14,165,233,0.4);">
+                <i class="fa fa-bolt"></i>
+            </div>
+            <h3>Real-Time Detection</h3>
+            <p>Instant analysis of uploaded network traffic data with results delivered in milliseconds for rapid
+                response.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #059669, #34d399); box-shadow: 0 8px 20px rgba(5,150,105,0.4);">
+                <i class="fa fa-chart-bar"></i>
+            </div>
+            <h3>Detailed Analytics</h3>
+            <p>Comprehensive reports with visualizations showing attack patterns, traffic anomalies, and threat
+                assessment scores.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #dc2626, #f97316); box-shadow: 0 8px 20px rgba(220,38,38,0.4);">
+                <i class="fa fa-shield-alt"></i>
+            </div>
+            <h3>Threat Intelligence</h3>
+            <p>Identifies specific attack types including SYN Flood, UDP Flood, HTTP Flood, Slowloris, and more.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #d97706, #fbbf24); box-shadow: 0 8px 20px rgba(217,119,6,0.4);">
+                <i class="fa fa-upload"></i>
+            </div>
+            <h3>Easy File Upload</h3>
+            <p>Simply upload your network traffic capture files (PCAP/CSV) and get instant AI-powered analysis results.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"
+                style="background: linear-gradient(135deg, #7c3aed, #a855f7); box-shadow: 0 8px 20px rgba(124,58,237,0.4);">
+                <i class="fa fa-history"></i>
+            </div>
+            <h3>History &amp; Logs</h3>
+            <p>Full audit trail of all uploaded files and detection results, accessible anytime through your dashboard.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section">
+    <div class="how-inner">
+        <div class="section-tag"><i class="fa fa-list-ol"></i> Process</div>
+        <h2 class="section-title">How It <span>Works</span></h2>
+        <p class="section-desc">Three simple steps to identify and classify DDoS attacks in your network traffic.</p>
+
+        <div class="steps-row">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <h4>Create Account</h4>
+                <p>Register for free and set up your secure account to start analyzing network traffic.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <h4>Upload Traffic Data</h4>
+                <p>Upload your network capture or CSV file — our system accepts multiple popular formats.</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <h4>Get AI Analysis</h4>
+                <p>Receive instant ML-powered classification with detailed attack type breakdown and confidence scores.
+                </p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <h4>Review &amp; Act</h4>
+                <p>Review detailed analytics reports and take informed action to secure your network infrastructure.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA BANNER ── -->
+<div style="padding: 0 40px 80px;">
+    <div class="cta-banner">
+        <h2>Ready to Secure Your Network?</h2>
+        <p>Join our platform today and leverage AI to detect DDoS attacks before they cause damage.</p>
+        <div class="cta-banner-btns">
+            <a href="/register/" class="btn-primary-glow">
+                <i class="fa fa-user-plus"></i> Create Free Account
+            </a>
+            <a href="/login/" class="btn-outline-glow">
+                <i class="fa fa-sign-in-alt"></i> Sign In
+            </a>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}

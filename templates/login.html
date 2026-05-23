@@ -1,0 +1,295 @@
+{% include 'header.html' %}
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    .auth-page-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 16px;
+        font-family: 'Inter', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .auth-page-wrapper::before,
+    .auth-page-wrapper::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.25;
+        animation: blobFloat 8s ease-in-out infinite alternate;
+    }
+
+    .auth-page-wrapper::before {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle, #4f46e5, #7c3aed);
+        top: -100px;
+        left: -120px;
+    }
+
+    .auth-page-wrapper::after {
+        width: 360px;
+        height: 360px;
+        background: radial-gradient(circle, #0ea5e9, #6366f1);
+        bottom: -80px;
+        right: -100px;
+        animation-delay: 4s;
+    }
+
+    @keyframes blobFloat {
+        from {
+            transform: translateY(0) scale(1);
+        }
+
+        to {
+            transform: translateY(30px) scale(1.08);
+        }
+    }
+
+    .auth-card {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        padding: 48px 44px;
+        width: 100%;
+        max-width: 440px;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 10;
+        animation: cardSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes cardSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .auth-icon-badge {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.45);
+    }
+
+    .auth-icon-badge i {
+        font-size: 26px;
+        color: #fff;
+    }
+
+    .auth-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        margin: 0 0 6px;
+        letter-spacing: -0.5px;
+    }
+
+    .auth-subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+        margin: 0 0 36px;
+    }
+
+    .auth-input-group {
+        position: relative;
+        margin-bottom: 18px;
+    }
+
+    .auth-input-group .input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 16px;
+        pointer-events: none;
+        transition: color 0.3s;
+    }
+
+    .auth-input-group input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1.5px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 14px 16px 14px 46px;
+        color: #fff;
+        font-size: 15px;
+        font-family: 'Inter', sans-serif;
+        outline: none;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .auth-input-group input::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+    }
+
+    .auth-input-group input:focus {
+        border-color: #6366f1;
+        background: rgba(99, 102, 241, 0.12);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    }
+
+    .auth-input-group:focus-within .input-icon {
+        color: #818cf8;
+    }
+
+    .auth-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 6px;
+        padding-left: 2px;
+    }
+
+    .auth-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        border: none;
+        border-radius: 12px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'Inter', sans-serif;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+        letter-spacing: 0.3px;
+    }
+
+    .auth-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(79, 70, 229, 0.55);
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    }
+
+    .auth-btn:active {
+        transform: translateY(0);
+    }
+
+    .auth-footer-link {
+        text-align: center;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 24px;
+    }
+
+    .auth-footer-link a {
+        color: #818cf8;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+    }
+
+    .auth-footer-link a:hover {
+        color: #a5b4fc;
+    }
+
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.15;
+        animation: particleDrift linear infinite;
+    }
+
+    @keyframes particleDrift {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 0.15;
+        }
+
+        90% {
+            opacity: 0.15;
+        }
+
+        100% {
+            transform: translateY(-100px) rotate(720deg);
+            opacity: 0;
+        }
+    }
+</style>
+
+<div class="auth-page-wrapper">
+    <!-- Floating particles -->
+    <div class="particle"
+        style="width:8px;height:8px;background:#818cf8;left:12%;animation-duration:13s;animation-delay:0s;"></div>
+    <div class="particle"
+        style="width:5px;height:5px;background:#67e8f9;left:40%;animation-duration:9s;animation-delay:2s;"></div>
+    <div class="particle"
+        style="width:9px;height:9px;background:#a78bfa;left:65%;animation-duration:15s;animation-delay:1s;"></div>
+    <div class="particle"
+        style="width:6px;height:6px;background:#f9a8d4;left:83%;animation-duration:11s;animation-delay:4s;"></div>
+    <div class="particle"
+        style="width:7px;height:7px;background:#fcd34d;left:55%;animation-duration:10s;animation-delay:3s;"></div>
+
+    <div class="auth-card">
+        <div class="auth-icon-badge">
+            <i class="fa fa-sign-in-alt"></i>
+        </div>
+
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to your account to continue</p>
+
+        <form action="addlogin" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Email -->
+            <div class="auth-input-group">
+                <label class="auth-label" for="email">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                <i class="fa fa-envelope input-icon" style="top:calc(50% + 12px);"></i>
+            </div>
+
+            <!-- Password -->
+            <div class="auth-input-group">
+                <label class="auth-label" for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                <i class="fa fa-lock input-icon" style="top:calc(50% + 12px);"></i>
+            </div>
+
+            <button class="auth-btn" type="submit" id="login-submit-btn">
+                <i class="fa fa-arrow-right me-2"></i> Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer-link">
+            Don't have an account? <a href="/register/">Create one</a>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}

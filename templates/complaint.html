@@ -1,0 +1,84 @@
+{% include 'header.html' %}
+{% load static %}
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 40px;
+        margin-top: 50px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-radius: 10px;
+        padding: 12px 15px;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #7c3aed;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+    }
+
+    .gradient-btn {
+        background: linear-gradient(135deg, #7c3aed, #4f46e5);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .gradient-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+    }
+</style>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="glass-card animate__animated animate__fadeInUp">
+                <div class="text-center mb-4">
+                    <span class="badge bg-primary mb-2"
+                        style="background: rgba(124, 58, 237, 0.2) !important; color: #a78bfa;">User Support</span>
+                    <h2 class="fw-bold text-white">Post a Complaint</h2>
+                    <p class="text-white-50">Tell us what's wrong and we'll look into it.</p>
+                </div>
+
+                {% if message %}
+                <div class="alert alert-info border-0" style="background: rgba(12, 185, 214, 0.1); color: #67e8f9;">
+                    <i class="fa fa-info-circle me-2"></i> {{ message }}
+                </div>
+                {% endif %}
+
+                <form action="/complaint/add" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="form-label text-white-50">Subject</label>
+                        <input type="text" name="subject" class="form-control" placeholder="Brief summary of the issue"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-white-50">Message</label>
+                        <textarea name="message" class="form-control" rows="5"
+                            placeholder="Describe your issue in detail..." required></textarea>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary gradient-btn">Submit Complaint</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
